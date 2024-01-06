@@ -2,6 +2,10 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { LoginRequest } from "../api/users"
 import { Formik, Field, Form } from "formik"
 import { Link, useNavigate } from "react-router-dom"
+import toast from "react-hot-toast"
+
+// COMPONENTS
+import Loader from "../components/Loader"
 
 import { BsTwitter } from "react-icons/bs"
 
@@ -11,16 +15,19 @@ const LoginPage = () => {
     const queryClient = useQueryClient();
 
     const loginMutation = useMutation({
-        mutationFn:LoginRequest,
+        mutationFn: LoginRequest,
         onSuccess: () => {
             queryClient.invalidateQueries("tweets")
-            navigate("/home")
-            console.log('Inicio de sesion exitoso')
+            navigate("/feed")
+            toast.success("login success")
         },
         onError: (error) => {
+            toast.error('Login failed. Please check your credentials and try again.')
             console.error(error)
         }
     })
+
+    if (loginMutation.isPending) return (<><Loader/></>);
 
     return (
         <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
