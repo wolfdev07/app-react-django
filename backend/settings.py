@@ -38,10 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # DEPENDENCIAS
     'channels',
     'rest_framework',
-    'rest_framework_simplejwt.token_backlist',
+    'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
+    # APPS
     'users',
 ]
 
@@ -129,6 +131,8 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# IMPLEMENTAR CUSTOM USER
+AUTH_USER_MODEL = 'users.User'
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
